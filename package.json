@@ -18,7 +18,8 @@
     "gulp": "^3.9.0",
     "gulp-babel": "^5.2.1",
     "gulp-eslint": "^1.0.0",
-    "gulp-tape": "0.0.3"
+    "gulp-tape": "0.0.3",
+    "tap-spec": "^4.1.0"
   },
   "dependencies": {
     "underscore": "^1.8.3"
