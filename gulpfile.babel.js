@@ -10,6 +10,7 @@ import gulp from 'gulp';
 import tape from 'gulp-tape';
 import babel from 'gulp-babel';
 import eslint from 'gulp-eslint';
+import tapSpec from 'tap-spec';
 
 const LIB_DIR = path.join(__dirname, 'lib');
 
@@ -34,7 +35,7 @@ gulp.task('dist', ['test'], () => {
 
 gulp.task('test', ['compile'], () => {
   return gulp.src(COMPILED_TEST_FILES)
-  .pipe(tape());
+  .pipe(tape({reporter: tapSpec()}));
 });
 
 
