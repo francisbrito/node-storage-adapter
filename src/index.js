@@ -10,7 +10,7 @@ const PROTOTYPE = {
   find() {},
 };
 
-export default function createAdapter(options) {
+export default function createAdapter(options = {}) {
   debug('passed-in options (keys only): %j', Object.keys(options));
 
   return Object.create(PROTOTYPE, {
