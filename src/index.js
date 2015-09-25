@@ -7,6 +7,17 @@ import libdebug from 'debug';
 // create debug logger
 const debug = libdebug('storage-adapter');
 
+export const ADAPTABLE_METHODS = [
+  'skip',
+  'sort',
+  'find',
+  'limit',
+  'insert',
+  'update',
+  'remove',
+  'aggregate',
+];
+
 const PROTOTYPE = {
   find(query, projection) {
     debug('received query %j', query);
