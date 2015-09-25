@@ -15,7 +15,7 @@ A storage-agnostic data adapter.
 
 ### Pagination
 * **#limit(count)**
-* **#take(count)**
+* **#skip(count)**
 
 ### Sorting
 * **#sort(indeces)**
