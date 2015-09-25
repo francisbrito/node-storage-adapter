@@ -29,7 +29,7 @@ test('adapter factory rejects invalid storages', (assert) => {
   assert.doesNotThrow(arrayStorage, 'should support array storage');
   assert.doesNotThrow(adaptableStorage, 'should support adaptable storage');
 
-  assert.throws(noStorage, /`options.storage ` is missing/i,
+  assert.throws(noStorage, /`options.storage` is missing/i,
     'should have a storage');
   assert.throws(invalidStorage,
     /`options.storage` should be a queryable or an array/i,
