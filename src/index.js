@@ -30,7 +30,7 @@ const PROTOTYPE = {
 export default function createAdapter(options = {}) {
   debug('passed-in options (keys only): %j', Object.keys(options));
 
-  if (!options.storage) throw new Error('Storage is missing.');
+  if (!options.storage) throw new Error('`options.storage` is missing.');
 
   return Object.create(PROTOTYPE, {
     storage: {
