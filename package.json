@@ -4,7 +4,7 @@
   "description": "A storage-agnostic data adapter.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "gulp test",
     "prepublish": "gulp dist"
   },
   "author": "Francis Brito <fr.br94@gmail.com>",
