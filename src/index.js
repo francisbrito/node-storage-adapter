@@ -2,6 +2,7 @@
  * External imports
  */
 import _ from 'underscore';
+import co from 'co';
 import mingo from 'mingo';
 import libdebug from 'debug';
 
@@ -29,7 +30,10 @@ const PROTOTYPE = {
     debug('received query %j', query);
     debug('received projection %j', projection);
 
-    return mingo.find(this.storage, query, projection).all();
+    const adapter = this;
+    return co(function* findInnerGen() {
+      return mingo.find(adapter.storage, query, projection).all();
+    });
   },
 };
 
