@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import co from 'co';
 import test from 'blue-tape';
 
 import createAdapter from '../src';
@@ -36,6 +37,21 @@ test('adapter factory rejects invalid storages', (assert) => {
     'should have a valid storage');
   assert.end();
 });
+
+test('adapter find returns a promise resolving to a array',
+co.wrap((assert) => {
+  const sut = createAdapter(DEFAULTS);
+  const result = sut.find();
+
+  // assert is promise
+  assert.ok(result.then, 'result should be thenable');
+  assert.ok(result.catch, 'result should be catchable');
+
+  result.then((docs) => {
+    assert.ok(docs, 'result should resolvable');
+    assert.ok(_.isArray(docs), 'result should resolve to an array');
+  });
+}));
 
 test('adapter find supports querying', (assert) => {
   const sut = createAdapter(DEFAULTS);
