@@ -3,32 +3,35 @@ import test from 'blue-tape';
 
 import createAdapter from '../src';
 
-function setUp() {
-  return createAdapter({
-    storage: [
-      {key: 'x', value: 1},
-      {key: 'x', value: 2},
-      {key: 'x', value: 3},
-      {key: 'y', value: 4},
-      {key: 'z', value: 5},
-      {key: 'w', value: -1},
-    ],
-  });
-}
+const DEFAULTS = {
+  storage: [
+    {key: 'x', value: 1},
+    {key: 'x', value: 2},
+    {key: 'x', value: 3},
+    {key: 'y', value: 4},
+    {key: 'z', value: 5},
+    {key: 'w', value: -1},
+  ],
+};
 
 test('adapter#find', (sub) => {
   sub.test('exists', (assert) => {
-    const sut = setUp();
+    const sut = createAdapter(DEFAULTS);
 
     assert.ok(sut.find, 'should exist');
     assert.end();
   });
 
   sub.test('returns an array', (assert) => {
-    const sut = setUp();
+    const sut = createAdapter(DEFAULTS);
     const result = sut.find();
 
     assert.ok(_.isArray(result), 'should return an array');
     assert.end();
   });
+});
+
+test('adapter find throws if no storage is passed', (assert) => {
+  assert.throws(createAdapter, /storage is missing/i, 'storage is missing');
+  assert.end();
 });
