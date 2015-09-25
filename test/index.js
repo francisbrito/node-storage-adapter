@@ -37,23 +37,6 @@ test('adapter factory rejects invalid storages', (assert) => {
   assert.end();
 });
 
-test('adapter#find', (sub) => {
-  sub.test('exists', (assert) => {
-    const sut = createAdapter(DEFAULTS);
-
-    assert.ok(sut.find, 'should exist');
-    assert.end();
-  });
-
-  sub.test('returns an array', (assert) => {
-    const sut = createAdapter(DEFAULTS);
-    const result = sut.find();
-
-    assert.ok(_.isArray(result), 'should return an array');
-    assert.end();
-  });
-});
-
 test('adapter find supports querying', (assert) => {
   const sut = createAdapter(DEFAULTS);
   const query = {
