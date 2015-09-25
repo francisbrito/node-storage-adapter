@@ -46,3 +46,16 @@ test('adapter find supports querying', (assert) => {
   assert.ok(_.every(result, (r) => r.key === 'x'), 'result should match query');
   assert.end();
 });
+
+test('adapter find supports projection', (assert) => {
+  const sut = createAdapter(DEFAULTS);
+  const projection = {
+    key: false,
+    value: true,
+  };
+  const result = sut.find({}, projection);
+
+  assert.ok(_.every(result, (r) => 'value' in r && !('key' in r)),
+  'should contain selected keys only');
+  assert.end();
+});
