@@ -39,7 +39,7 @@ test('adapter factory rejects invalid storages', (assert) => {
 });
 
 test('adapter find returns a promise resolving to a array',
-co.wrap((assert) => {
+co.wrap(function* testReturnsAPromise(assert) {
   const sut = createAdapter(DEFAULTS);
   const result = sut.find();
 
@@ -47,10 +47,10 @@ co.wrap((assert) => {
   assert.ok(result.then, 'result should be thenable');
   assert.ok(result.catch, 'result should be catchable');
 
-  result.then((docs) => {
-    assert.ok(docs, 'result should resolvable');
-    assert.ok(_.isArray(docs), 'result should resolve to an array');
-  });
+  const docs = yield result;
+
+  assert.ok(docs, 'result should resolvable');
+  assert.ok(_.isArray(docs), 'result should resolve to an array');
 }));
 
 test('adapter find supports querying', (assert) => {
