@@ -1,13 +1,16 @@
 /**
  * External imports
  */
+import mingo from 'mingo';
 import libdebug from 'debug';
 
 // create debug logger
 const debug = libdebug('storage-adapter');
 
 const PROTOTYPE = {
-  find() {},
+  find(query, projection) {
+    return mingo.find(this.storage, query, projection).all();
+  },
 };
 
 export default function createAdapter(options = {}) {
