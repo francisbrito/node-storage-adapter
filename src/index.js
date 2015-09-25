@@ -9,6 +9,9 @@ const debug = libdebug('storage-adapter');
 
 const PROTOTYPE = {
   find(query, projection) {
+    debug('received query %j', query);
+    debug('received projection %j', projection);
+
     return mingo.find(this.storage, query, projection).all();
   },
 };
