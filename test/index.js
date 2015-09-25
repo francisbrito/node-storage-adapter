@@ -2,6 +2,7 @@ import _ from 'underscore';
 import test from 'blue-tape';
 
 import createAdapter from '../src';
+import {ADAPTABLE_METHODS} from '../src';
 
 const DEFAULTS = {
   storage: [
@@ -16,26 +17,17 @@ const DEFAULTS = {
 
 test('adapter factory rejects invalid storages', (assert) => {
   const sut = createAdapter;
-  const queryable = [
-    'skip',
-    'sort',
-    'find',
-    'limit',
-    'insert',
-    'update',
-    'remove',
-    'aggregate',
-  ].reduce((curr, prev) => {
+  const adaptable = ADAPTABLE_METHODS.reduce((curr, prev) => {
     prev[curr] = {};
     return prev;
   }, {});
   const noStorage = sut.bind(sut, {});
   const arrayStorage = sut.bind(sut, {storage: DEFAULTS});
   const invalidStorage = sut.bind(sut, {storage: 'foo'});
-  const queryableStorage = sut.bind(sut, {storage: queryable});
+  const adaptableStorage = sut.bind(sut, {storage: adaptable});
 
   assert.doesNotThrow(arrayStorage, 'should support array storage');
-  assert.doesNotThrow(queryableStorage, 'should support queryable storage');
+  assert.doesNotThrow(adaptableStorage, 'should support adaptable storage');
 
   assert.throws(noStorage, /`options.storage ` is missing/i,
     'should have a storage');
