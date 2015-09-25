@@ -14,6 +14,37 @@ const DEFAULTS = {
   ],
 };
 
+test('adapter factory rejects invalid storages', (assert) => {
+  const sut = createAdapter;
+  const queryable = [
+    'skip',
+    'sort',
+    'find',
+    'limit',
+    'insert',
+    'update',
+    'remove',
+    'aggregate',
+  ].reduce((curr, prev) => {
+    prev[curr] = {};
+    return prev;
+  }, {});
+  const noStorage = sut.bind(sut, {});
+  const arrayStorage = sut.bind(sut, {storage: DEFAULTS});
+  const invalidStorage = sut.bind(sut, {storage: 'foo'});
+  const queryableStorage = sut.bind(sut, {storage: queryable});
+
+  assert.doesNotThrow(arrayStorage, 'should support array storage');
+  assert.doesNotThrow(queryableStorage, 'should support queryable storage');
+
+  assert.throws(noStorage, /`options.storage ` is missing/i,
+    'should have a storage');
+  assert.throws(invalidStorage,
+    /`options.storage` should be a queryable or an array/i,
+    'should have a valid storage');
+  assert.end();
+});
+
 test('adapter#find', (sub) => {
   sub.test('exists', (assert) => {
     const sut = createAdapter(DEFAULTS);
