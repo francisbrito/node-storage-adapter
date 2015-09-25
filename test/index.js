@@ -17,12 +17,12 @@ const DEFAULTS = {
 
 test('adapter factory rejects invalid storages', (assert) => {
   const sut = createAdapter;
-  const adaptable = ADAPTABLE_METHODS.reduce((curr, prev) => {
+  const adaptable = ADAPTABLE_METHODS.reduce((prev, curr) => {
     prev[curr] = {};
     return prev;
   }, {});
   const noStorage = sut.bind(sut, {});
-  const arrayStorage = sut.bind(sut, {storage: DEFAULTS});
+  const arrayStorage = sut.bind(sut, DEFAULTS);
   const invalidStorage = sut.bind(sut, {storage: 'foo'});
   const adaptableStorage = sut.bind(sut, {storage: adaptable});
 
