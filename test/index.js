@@ -53,26 +53,26 @@ co.wrap(function* testReturnsAPromise(assert) {
   assert.ok(_.isArray(docs), 'result should resolve to an array');
 }));
 
-test('adapter find supports querying', (assert) => {
+test('adapter find supports querying',
+co.wrap(function* testSupportsQuerying(assert) {
   const sut = createAdapter(DEFAULTS);
   const query = {
     key: 'x',
   };
-  const result = sut.find(query);
+  const result = yield sut.find(query);
 
   assert.ok(_.every(result, (r) => r.key === 'x'), 'result should match query');
-  assert.end();
-});
+}));
 
-test('adapter find supports projection', (assert) => {
+test('adapter find supports projection',
+co.wrap(function* testSupportsProjection(assert) {
   const sut = createAdapter(DEFAULTS);
   const projection = {
     key: false,
     value: true,
   };
-  const result = sut.find({}, projection);
+  const result = yield sut.find({}, projection);
 
   assert.ok(_.every(result, (r) => 'value' in r && !('key' in r)),
   'should contain selected keys only');
-  assert.end();
-});
+}));
