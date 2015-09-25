@@ -35,3 +35,14 @@ test('adapter find throws if no storage is passed', (assert) => {
   assert.throws(createAdapter, /storage is missing/i, 'storage is missing');
   assert.end();
 });
+
+test('adapter find supports querying', (assert) => {
+  const sut = createAdapter(DEFAULTS);
+  const query = {
+    key: 'x',
+  };
+  const result = sut.find(query);
+
+  assert.ok(_.every(result, (r) => r.key === 'x'), 'result should match query');
+  assert.end();
+});
